@@ -7,10 +7,10 @@ function EnergyComponent() {
     const [data, setData] = useState<EnergyData | null>(null);
 
     async function fetchData() {
-        try{
-        const x = await fetch("http://localhost:8080/api/energy");
-        return await x.text();
-        }catch(err){
+        try {
+            const x = await fetch("http://localhost:8080/api/energy");
+            return await x.text();
+        } catch (err) {
             return null
         }
     }
@@ -23,25 +23,25 @@ function EnergyComponent() {
     return (
         <>
             {data ?
-            <LineChart
-                xAxis={[
-                    {
-                        id: 'barCategories',
-                        data: data?.energy.values.map(x => x.date.slice(0, 10)),
-                        scaleType: 'band',
-                    },
-                ]}
-                series={[
-                    {
-                        data: data?.energy.values.map(x => x.value / 1000),
-                        label: 'kWh',
-                        area: true, 
-                        showMark: false
-                    },
-                ]}
-                height={500}
-            />
-            : <CircularProgress />}
+                <LineChart
+                    xAxis={[
+                        {
+                            id: 'barCategories',
+                            data: data?.energy.values.map(x => x.date.slice(0, 10)),
+                            scaleType: 'band',
+                        },
+                    ]}
+                    series={[
+                        {
+                            data: data?.energy.values.map(x => x.value / 1000),
+                            label: 'kWh',
+                            area: true,
+                            showMark: false
+                        },
+                    ]}
+                    height={500}
+                />
+                : <CircularProgress />}
         </>
     );
 }
