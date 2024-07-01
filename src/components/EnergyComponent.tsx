@@ -4,9 +4,9 @@ import { useEffect, useState, memo } from 'react';
 import { EnergyData } from '../interfaces/Energy';
 
 function EnergyComponent() {
-    const [bio, setBio] = useState<EnergyData | null>(null);
+    const [data, setData] = useState<EnergyData | null>(null);
 
-    async function fetchBio() {
+    async function fetchData() {
         try{
         const x = await fetch("http://localhost:8080/api/energy");
         return await x.text();
@@ -16,24 +16,24 @@ function EnergyComponent() {
     }
 
     useEffect(() => {
-        if (bio == null)
-            fetchBio().then(result => result ? setBio(JSON.parse(result) as EnergyData) : null);
+        if (data == null)
+            fetchData().then(result => result ? setData(JSON.parse(result) as EnergyData) : null);
     });
 
     return (
         <>
-            {bio ?
+            {data ?
             <LineChart
                 xAxis={[
                     {
                         id: 'barCategories',
-                        data: bio?.energy.values.map(x => x.date.slice(0, 10)),
+                        data: data?.energy.values.map(x => x.date.slice(0, 10)),
                         scaleType: 'band',
                     },
                 ]}
                 series={[
                     {
-                        data: bio?.energy.values.map(x => x.value / 1000),
+                        data: data?.energy.values.map(x => x.value / 1000),
                         label: 'kWh',
                         area: true, 
                         showMark: false

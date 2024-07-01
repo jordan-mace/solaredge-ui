@@ -4,9 +4,9 @@ import { SiteData } from '../interfaces/Site';
   
 
 export default function SiteDetailsComponent() {
-    const [bio, setBio] = useState<SiteData | null>(null);
+    const [data, setData] = useState<SiteData | null>(null);
 
-    async function fetchBio() {
+    async function fetchData() {
         try{
             const x = await fetch("http://localhost:8080/api/site");
             if(x.status !== 200) return null
@@ -18,8 +18,8 @@ export default function SiteDetailsComponent() {
     
     useEffect(() => {
         const interval = setInterval(() => {
-            if(bio !== null) return;
-            fetchBio().then(result => result ? setBio(JSON.parse(result) as SiteData) : null)
+            if(data !== null) return;
+            fetchData().then(result => result ? setData(JSON.parse(result) as SiteData) : null)
 
         }, 5000)
         return () => clearInterval(interval)
@@ -27,13 +27,13 @@ export default function SiteDetailsComponent() {
 
     return (
         <>
-            {bio ? 
+            {data ? 
             <>
                 <h4>Current</h4>
-                <p>Power: {(bio.overview.currentPower.power / 1000).toPrecision(2)}kWh</p>
+                <p>Power: {(data.overview.currentPower.power / 1000).toPrecision(2)}kWh</p>
                 <h4>Lifetime</h4>
-                <p>Power: {(bio.overview.lifeTimeData.energy / 1000)}kWh</p>
-                <p>Revenue: ${bio.overview.lifeTimeData.revenue}</p>
+                <p>Power: {(data.overview.lifeTimeData.energy / 1000)}kWh</p>
+                <p>Revenue: ${data.overview.lifeTimeData.revenue}</p>
             </> : <CircularProgress />}
         </>
     );
