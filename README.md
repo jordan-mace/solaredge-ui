@@ -3,6 +3,9 @@
 A little React Web UI to keep an eye on your SolarEdge usage.
 Backend API written in Go with the ability to cache specific requests.
 
+# Example
+![image](https://github.com/jordan-mace/solaredge-ui/assets/1805887/5c5716fe-0fb7-4cae-b048-15809a7b84d7)
+
 ## Backend
 
 The backend runs on port 8080 while the frontend runs on port 3000.
