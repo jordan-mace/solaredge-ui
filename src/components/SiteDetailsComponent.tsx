@@ -1,44 +1,10 @@
-import { Box, Button, FormControl, FormGroup, FormLabel, Input } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
-
-interface Root {
-    overview: Overview
-  }
-  
-interface Overview {
-    lastUpdateTime: string
-    lifeTimeData: LifeTimeData
-    lastYearData: LastYearData
-    lastMonthData: LastMonthData
-    lastDayData: LastDayData
-    currentPower: CurrentPower
-    measuredBy: string
-  }
-  
-interface LifeTimeData {
-    energy: number
-    revenue: number
-  }
-  
-interface LastYearData {
-    energy: number
-  }
-  
-interface LastMonthData {
-    energy: number
-  }
-  
-interface LastDayData {
-    energy: number
-  }
-  
-interface CurrentPower {
-    power: number
-  }
+import { SiteData } from '../interfaces/Site';
   
 
 export default function SiteDetailsComponent() {
-    const [bio, setBio] = useState<Root | null>(null);
+    const [bio, setBio] = useState<SiteData | null>(null);
 
     async function fetchBio() {
         try{
@@ -51,13 +17,24 @@ export default function SiteDetailsComponent() {
     }
     
     useEffect(() => {
-        if(bio == null)
-            fetchBio().then(result => result ? setBio(JSON.parse(result) as Root) : null)
+        const interval = setInterval(() => {
+            if(bio !== null) return;
+            fetchBio().then(result => result ? setBio(JSON.parse(result) as SiteData) : null)
+
+        }, 5000)
+        return () => clearInterval(interval)
     });
 
     return (
         <>
-            {bio ? <><p>Current power: {(bio.overview.currentPower.power / 1000).toPrecision(2)}kWh</p></> : null}
+            {bio ? 
+            <>
+                <h4>Current</h4>
+                <p>Power: {(bio.overview.currentPower.power / 1000).toPrecision(2)}kWh</p>
+                <h4>Lifetime</h4>
+                <p>Power: {(bio.overview.lifeTimeData.energy / 1000)}kWh</p>
+                <p>Revenue: ${bio.overview.lifeTimeData.revenue}</p>
+            </> : <CircularProgress />}
         </>
     );
 }

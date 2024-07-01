@@ -1,30 +1,10 @@
-import { Box } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import { BarChart } from '@mui/x-charts/BarChart';
+import { DetailsData } from '../interfaces/Details';
 import { useEffect, useState, memo } from 'react';
 
-export interface Root {
-    powerDetails: PowerDetails
-  }
-  
-  export interface PowerDetails {
-    timeUnit: string
-    unit: string
-    meters: Meter[]
-  }
-  
-  export interface Meter {
-    type: string
-    values: Value[]
-  }
-  
-  export interface Value {
-    date: string
-    value?: number
-  }
-  
-
 function Details() {
-    const [bio, setBio] = useState<Root | null>(null);
+    const [bio, setBio] = useState<DetailsData | null>(null);
 
     async function fetchBio() {
         try{
@@ -37,7 +17,7 @@ function Details() {
 
     useEffect(() => {
         if (bio == null)
-            fetchBio().then(result => result ? setBio(JSON.parse(result) as Root) : null);
+            fetchBio().then(result => result ? setBio(JSON.parse(result) as DetailsData) : null);
     });
 
     return (
@@ -59,7 +39,7 @@ function Details() {
                 ]}
                 height={500}
             />
-            : null}
+            : <CircularProgress />}
         </>
     );
 }

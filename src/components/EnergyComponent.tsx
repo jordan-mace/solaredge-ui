@@ -1,25 +1,10 @@
-import { Box } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import { LineChart } from '@mui/x-charts';
 import { useEffect, useState, memo } from 'react';
-
-interface Root {
-    energy: Energy
-}
-
-interface Energy {
-    timeUnit: string
-    unit: string
-    measuredBy: string
-    values: Value[]
-}
-
-interface Value {
-    date: string
-    value: number
-}
+import { EnergyData } from '../interfaces/Energy';
 
 function EnergyComponent() {
-    const [bio, setBio] = useState<Root | null>(null);
+    const [bio, setBio] = useState<EnergyData | null>(null);
 
     async function fetchBio() {
         try{
@@ -32,11 +17,11 @@ function EnergyComponent() {
 
     useEffect(() => {
         if (bio == null)
-            fetchBio().then(result => result ? setBio(JSON.parse(result) as Root) : null);
+            fetchBio().then(result => result ? setBio(JSON.parse(result) as EnergyData) : null);
     });
 
     return (
-        <Box>
+        <>
             {bio ?
             <LineChart
                 xAxis={[
@@ -56,8 +41,8 @@ function EnergyComponent() {
                 ]}
                 height={500}
             />
-            : null}
-        </Box>
+            : <CircularProgress />}
+        </>
     );
 }
 
