@@ -1,9 +1,22 @@
 # SolarEdge UI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A little React Web UI to keep an eye on your SolarEdge usage.
+Backend API written in Go with the ability to cache specific requests.
 
 ## Backend
-Running the backend is simple, just run `go run api/index.go`
+
+### Setup
+To get started, you'll need to get your site ID and your API Key.
+
+Go to [SolarEdge Monitoring](https://monitoring.solaredge.com/solaredge-web/p/login?locale=en_US) and log in. Your site ID is your ID shown on the page.
+
+To get your API key, click Admin > Site Access and scroll down to API Access.
+
+Tick the 'I have agreed' and click Save. A new API Key should generate.
+
+### Run
+
+Running the backend is simple, just run `SE_API_KEY=[YOUR API KEY HERE] SE_SITE=[YOUR SITE ID HERE] go run api/index.go`
 
 ## Frontend
 #### Available Scripts
