@@ -4,9 +4,11 @@ A little React Web UI to keep an eye on your SolarEdge usage.
 Backend API written in Go with the ability to cache specific requests.
 
 ## Backend
+
 The backend runs on port 8080 while the frontend runs on port 3000.
 
 ### Setup
+
 To get started, you'll need to get your site ID and your API Key.
 
 Go to [SolarEdge Monitoring](https://monitoring.solaredge.com/solaredge-web/p/login?locale=en_US) and log in. Your site ID is your ID shown on the page.
@@ -20,6 +22,7 @@ Tick the 'I have agreed' and click Save. A new API Key should generate.
 Running the backend is simple, just run `SE_API_KEY=[YOUR API KEY HERE] SE_SITE=[YOUR SITE ID HERE] go run api/index.go`
 
 ## Frontend
+
 #### Available Scripts
 
 In the project directory, you can run:

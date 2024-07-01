@@ -1,11 +1,11 @@
-import './App.css';
-import EnergyComponent from './components/EnergyComponent';
-import { Card, CardContent, Container, Grid, Typography } from '@mui/material';
-import SiteDetailsComponent from './components/SiteDetailsComponent';
-import { memo } from 'react';
-import Details from './components/Details';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import "./App.css";
+import EnergyComponent from "./components/EnergyComponent";
+import { Card, CardContent, Container, Grid, Typography } from "@mui/material";
+import SiteDetailsComponent from "./components/SiteDetailsComponent";
+import { memo } from "react";
+import Details from "./components/Details";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -47,9 +47,8 @@ function App() {
           </Grid>
         </Grid>
       </Container>
-      <div className='App-center'>
+      <div className="App-center">
         <Footer />
-
       </div>
     </div>
   );
