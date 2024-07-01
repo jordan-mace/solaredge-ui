@@ -1,8 +1,8 @@
 import { CircularProgress } from "@mui/material";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { SiteData } from "../interfaces/Site";
 
-export default function SiteDetailsComponent() {
+function SiteDetails() {
   const [data, setData] = useState<SiteData | null>(null);
 
   async function fetchData() {
@@ -26,7 +26,7 @@ export default function SiteDetailsComponent() {
   });
 
   return (
-    <>
+    <div data-testid="siteDetailsWidget">
       {data ? (
         <>
           <h4>Current</h4>
@@ -40,6 +40,8 @@ export default function SiteDetailsComponent() {
       ) : (
         <CircularProgress />
       )}
-    </>
+    </div>
   );
 }
+
+export default memo(SiteDetails);

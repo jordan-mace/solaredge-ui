@@ -1,0 +1,15 @@
+services:
+  backend:
+    build: ./api/
+    ports:
+      - 8080:8080
+    environment:
+      - SE_API_KEY=
+      - SE_SITE=
+    restart: unless-stopped
+
+  frontend:
+    build: .
+    ports:
+      - 3000:3000
+    restart: unless-stopped

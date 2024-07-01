@@ -3,7 +3,7 @@ import { LineChart } from "@mui/x-charts";
 import { useEffect, useState, memo } from "react";
 import { EnergyData } from "../interfaces/Energy";
 
-function EnergyComponent() {
+function Energy() {
   const [data, setData] = useState<EnergyData | null>(null);
 
   async function fetchData() {
@@ -23,7 +23,7 @@ function EnergyComponent() {
   });
 
   return (
-    <>
+    <div data-testid="energyWidget">
       {data ? (
         <LineChart
           xAxis={[
@@ -46,8 +46,8 @@ function EnergyComponent() {
       ) : (
         <CircularProgress />
       )}
-    </>
+    </div>
   );
 }
 
-export default memo(EnergyComponent);
+export default memo(Energy);

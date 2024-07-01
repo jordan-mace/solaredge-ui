@@ -1,7 +1,7 @@
 import "./App.css";
-import EnergyComponent from "./components/EnergyComponent";
+import EnergyComponent from "./components/Energy";
 import { Card, CardContent, Container, Grid, Typography } from "@mui/material";
-import SiteDetailsComponent from "./components/SiteDetailsComponent";
+import SiteDetailsComponent from "./components/SiteDetails";
 import { memo } from "react";
 import Details from "./components/Details";
 import Header from "./components/Header";

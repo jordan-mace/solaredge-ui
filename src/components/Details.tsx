@@ -23,7 +23,7 @@ function Details() {
   });
 
   return (
-    <>
+    <div data-testid="detailsWidget">
       {data ? (
         <BarChart
           xAxis={[
@@ -46,7 +46,7 @@ function Details() {
       ) : (
         <CircularProgress />
       )}
-    </>
+    </div>
   );
 }
 
