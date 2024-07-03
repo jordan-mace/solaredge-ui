@@ -6,6 +6,7 @@ import { memo } from "react";
 import Details from "./components/Details";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Env from "./components/Env";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Header />
       </div>
       <Container>
-        <Grid rowSpacing={2} columnSpacing={2} spacing={2}>
+        <Grid rowSpacing={2} columnSpacing={2}>
           <Grid item margin={2} xs={4}>
             <Card variant="outlined">
               <CardContent>
@@ -42,6 +43,16 @@ function App() {
                   Today
                 </Typography>
                 <Details />
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item margin={2}>
+            <Card variant="outlined">
+              <CardContent>
+                <Typography variant="h5" component="div">
+                  Env
+                </Typography>
+                <Env />
               </CardContent>
             </Card>
           </Grid>

@@ -1,13 +1,14 @@
 import { CircularProgress } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import { SiteData } from "../interfaces/Site";
+import { API_HOST, API_PORT, canParseJSON } from "../Globals";
 
 function SiteDetails() {
   const [data, setData] = useState<SiteData | null>(null);
 
   async function fetchData() {
     try {
-      const x = await fetch("http://localhost:8080/api/site");
+      const x = await fetch(`http://${API_HOST}:${API_PORT}/api/site`);
       if (x.status !== 200) return null;
       return await x.text();
     } catch (err) {
@@ -19,7 +20,9 @@ function SiteDetails() {
     const interval = setInterval(() => {
       if (data !== null) return;
       fetchData().then((result) =>
-        result ? setData(JSON.parse(result) as SiteData) : null,
+        result && canParseJSON(result)
+          ? setData(JSON.parse(result) as SiteData)
+          : null,
       );
     }, 5000);
     return () => clearInterval(interval);

@@ -2,13 +2,14 @@ import { CircularProgress } from "@mui/material";
 import { LineChart } from "@mui/x-charts";
 import { useEffect, useState, memo } from "react";
 import { EnergyData } from "../interfaces/Energy";
+import { API_HOST, API_PORT, canParseJSON } from "../Globals";
 
 function Energy() {
-  const [data, setData] = useState<EnergyData | null>(null);
+  const [data, setData] = useState<EnergyData | null | undefined>(undefined);
 
   async function fetchData() {
     try {
-      const x = await fetch("http://localhost:8080/api/energy");
+      const x = await fetch(`http://${API_HOST}:${API_PORT}/api/energy`);
       return await x.text();
     } catch (err) {
       return null;
@@ -16,9 +17,11 @@ function Energy() {
   }
 
   useEffect(() => {
-    if (data == null)
+    if (data == undefined)
       fetchData().then((result) =>
-        result ? setData(JSON.parse(result) as EnergyData) : null,
+        result && canParseJSON(result)
+          ? setData(JSON.parse(result) as EnergyData)
+          : null,
       );
   });
 

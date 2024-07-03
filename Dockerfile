@@ -7,9 +7,7 @@ COPY ./public ./public
 COPY ./src ./src
 COPY . .
 
-RUN npm run build
-
 WORKDIR /build
 EXPOSE 3000
 
-ENTRYPOINT [ "npx", "serve" ]
+ENTRYPOINT npm run serve
