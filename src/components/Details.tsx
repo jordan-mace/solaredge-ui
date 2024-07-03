@@ -2,14 +2,16 @@ import { CircularProgress } from "@mui/material";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { DetailsData } from "../interfaces/Details";
 import { useEffect, useState, memo } from "react";
-import { API_HOST, API_PORT, canParseJSON } from "../Globals";
+import { API_HOST, API_HTTPS, canParseJSON } from "../Globals";
 
 function Details() {
   const [data, setData] = useState<DetailsData | null>(null);
 
   async function fetchData() {
     try {
-      const x = await fetch(`http://${API_HOST}:${API_PORT}/api/details`);
+      const x = await fetch(
+        `${API_HTTPS ? "https" : "http"}://${API_HOST}/api/details`,
+      );
       return await x.text();
     } catch (err) {
       return null;

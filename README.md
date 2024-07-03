@@ -4,6 +4,7 @@ A little React Web UI to keep an eye on your SolarEdge usage.
 Backend API written in Go with the ability to cache specific requests.
 
 # Example
+
 ![image](https://github.com/jordan-mace/solaredge-ui/assets/1805887/5c5716fe-0fb7-4cae-b048-15809a7b84d7)
 
 ## Backend
@@ -32,19 +33,29 @@ In the project directory, you can run:
 
 #### `npm start`
 
-Runs the app in the development mode.
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.
-You will also see any lint errors in the console.
-
 #### `npm test`
-
-Launches the test runner in the interactive watch mode.
 
 #### `npm run build`
 
-Builds the app for production to the `build` folder.
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Docker
 
-The build is minified and the filenames include the hashes.
+#### Environment Variables
+
+The following environment variables can be passed in
+
+##### Frontend
+
+`SE_API_HOST` is the hostname for your `solaredge-api` instance. Note that because fetching of data is done client-side, this host must be accessible to all end users. Example: `SE_API_HOST=api.domain.com`
+
+`SE_API_HTTPS` is a true/false value to determine whether HTTPS is used when hitting the API. Example: `SE_API_HTTPS=true`
+
+### Run
+
+For the backend: `docker run -p 8080:8080 jordz0005/solaredge-api`
+For the frontend: `docker run -p 3000:3000 jordz0005/solaredge-web`
+
+### Compose
+
+An example compose file can be found at `compose.yaml`.
+
+Similar to the above, your services do not need to be on the same network or be linked, as the API requests are done client side.

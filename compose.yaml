@@ -1,17 +1,19 @@
 services:
   backend:
     build: ./api/
+    hostname: api.yourdomain.com
+    ports:
+      - 8080:8080
     environment:
       - SE_API_KEY=
       - SE_SITE=
     restart: unless-stopped
 
   frontend:
-    image: sha256:faffa38607ab54581f3287653e8a8404d39ac803fac27b225cb222b623cd7925
-    links:
-      - backend
+    build: .
     environment:
-      - REACT_APP_API_HOST=backend
+      - SE_API_HOST=api.yourdomain.com
+      - SE_API_HTTPS=true
     ports:
       - 3000:3000
     restart: unless-stopped

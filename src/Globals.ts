@@ -1,11 +1,9 @@
-require("process");
-
-export const API_HOST = process.env.REACT_APP_API_HOST
-  ? process.env.REACT_APP_API_HOST
-  : "localhost";
-export const API_PORT = process.env.REACT_APP_API_HOST
-  ? process.env.REACT_APP_API_HOST
-  : 8080;
+export const API_HTTPS = process.env.SE_API_HTTPS
+  ? Boolean(process.env.SE_API_HTTPS)
+  : false;
+export const API_HOST = process.env.SE_API_HOST
+  ? process.env.SE_API_HOST
+  : "localhost:8080";
 
 export function canParseJSON(jsonString: string | null) {
   if (jsonString === null) return false;

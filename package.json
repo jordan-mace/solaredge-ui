@@ -22,11 +22,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "webpack-dev-server --open --mode development --hot",
-    "serve": "serve -s build",
+    "start": "webpack-dev-server --open --port 3000 --mode development --hot",
+    "serve": "serve -s dist",
     "build": "webpack --mode production",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "test": "jest",
     "prepare": "husky"
   },
   "eslintConfig": {
@@ -58,6 +57,7 @@
     "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.0",
     "husky": "^9.0.11",
+    "jest": "^29.7.0",
     "lint-staged": "^15.2.7",
     "prettier": "^3.3.2",
     "process": "^0.11.10",

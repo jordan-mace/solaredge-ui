@@ -1,14 +1,16 @@
 import { CircularProgress } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import { SiteData } from "../interfaces/Site";
-import { API_HOST, API_PORT, canParseJSON } from "../Globals";
+import { API_HOST, API_HTTPS, canParseJSON } from "../Globals";
 
 function SiteDetails() {
   const [data, setData] = useState<SiteData | null>(null);
 
   async function fetchData() {
     try {
-      const x = await fetch(`http://${API_HOST}:${API_PORT}/api/site`);
+      const x = await fetch(
+        `${API_HTTPS ? "https" : "http"}://${API_HOST}/api/site`,
+      );
       if (x.status !== 200) return null;
       return await x.text();
     } catch (err) {
