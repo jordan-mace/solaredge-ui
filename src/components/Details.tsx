@@ -3,6 +3,7 @@ import { BarChart } from "@mui/x-charts/BarChart";
 import { DetailsData } from "../interfaces/Details";
 import { useEffect, useState, memo } from "react";
 import { API_HOST, API_HTTPS, canParseJSON } from "../Globals";
+import { PieChart } from "@mui/x-charts";
 
 function Details() {
   const [data, setData] = useState<DetailsData | null>(null);
@@ -30,20 +31,17 @@ function Details() {
   return (
     <div data-testid="detailsWidget">
       {data ? (
-        <BarChart
-          xAxis={[
-            {
-              id: "barCategories",
-              data: data?.powerDetails.meters.map((x) => x.type),
-              scaleType: "band",
-            },
-          ]}
+        <PieChart
+          title="Today"
           series={[
             {
-              data: data?.powerDetails.meters.map((x) =>
-                x.values[0].value ? x.values[0].value / 1000 : null,
-              ),
-              label: "kWh",
+              data: data?.powerDetails.meters.map((x, i) => {
+                return {
+                  id: i,
+                  label: x.type,
+                  value: x.values[0].value ? x.values[0].value / 1000 : 0,
+                };
+              }),
             },
           ]}
           height={500}
