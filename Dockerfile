@@ -1,15 +1,17 @@
 FROM node:alpine
 
-COPY package.json package-lock.json ./
+COPY package.json . 
+COPY package-lock.json .
 
 RUN npm install
-COPY ./public ./public
-COPY ./src ./src
-COPY . .
+COPY webpack.config.js .
+COPY tsconfig.json .
+COPY .babelrc .
 
-RUN npm run build
+COPY /public ./public
+COPY /src ./src
 
-WORKDIR /build
+WORKDIR /dist
 EXPOSE 3000
 
-ENTRYPOINT [ "npx", "serve" ]
+ENTRYPOINT npm run build && npm run serve
