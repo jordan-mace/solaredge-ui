@@ -23,6 +23,7 @@ var cache = make(map[string]string)
 func main() {
 	http.HandleFunc("/api/site", handleSite)
 	http.HandleFunc("/api/details", getDetails)
+	http.HandleFunc("/api/environment", getEnvironment)
 	http.HandleFunc("/api/energy", getEnergy)
 
 	http.ListenAndServe(":8080", nil)
@@ -31,7 +32,7 @@ func main() {
 func getApiData(url string, useCache bool) string {
 	var cached = cache[url]
 
-	if useCache == true && cached != "" {
+	if useCache && cached != "" {
 		fmt.Printf("Returning cached value for : " + url + "\n")
 		return cached
 	}
@@ -46,7 +47,7 @@ func getApiData(url string, useCache bool) string {
 
 	bodyBytes, err := io.ReadAll(res.Body)
 
-	if useCache == true {
+	if useCache {
 		cache[url] = string(bodyBytes)
 	}
 
@@ -60,7 +61,7 @@ func reply(w http.ResponseWriter, r *http.Request, url string, cache bool) {
 	}
 
 	w.Header().Add("Access-Control-Allow-Origin", "*")
-	fmt.Fprintf(w, getApiData(url, cache))
+	fmt.Fprint(w, getApiData(url, cache))
 }
 
 func getDetails(w http.ResponseWriter, r *http.Request) {
@@ -79,5 +80,10 @@ func handleSite(w http.ResponseWriter, r *http.Request) {
 
 func getEnergy(w http.ResponseWriter, r *http.Request) {
 	var url = monitorAPI + "/site/" + SITE + "/energy?timeUnit=DAY&startDate=" + time.Now().AddDate(0, -1, 0).Format("2006-01-02") + "&endDate=" + time.Now().Format("2006-01-02") + "&api_key=" + APIKEY
+	reply(w, r, url, true)
+}
+
+func getEnvironment(w http.ResponseWriter, r *http.Request) {
+	var url = monitorAPI + "/site/" + SITE + "/envBenefits?api_key=" + APIKEY
 	reply(w, r, url, true)
 }
